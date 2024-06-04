@@ -1,11 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_todo_app/controller/functions_controller.dart';
 import 'package:provider/provider.dart';
 
 class UpdateScreen extends StatelessWidget {
   final String docId;
-  const UpdateScreen({super.key, required this.docId});
+  final bool isDone;
+  const UpdateScreen({super.key, required this.docId, required this.isDone});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class UpdateScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                provider.updateData(docId);
+                provider.updateData(docId, isDone);
               },
               child: const Text('Update'),
             ),

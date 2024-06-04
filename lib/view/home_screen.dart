@@ -13,7 +13,15 @@ class HomeScreen extends StatelessWidget {
     final provider = Provider.of<FunctionsController>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text(
+          'Todo App',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: Center(
         child: StreamBuilder<List<TodoModel>>(
@@ -38,28 +46,102 @@ class HomeScreen extends StatelessWidget {
                   TodoModel data = snapshot.data![index];
                   final name = data.name.toString();
                   final subName = data.subName.toString();
-                  return ListTile(
+                  final isDone = data.isDone;
+                  // return ListTile(
+                  //   onTap: () {
+                  //     Navigator.of(context).push(
+                  //       MaterialPageRoute(
+                  //         builder: (context) => UpdateScreen(
+                  //           isDone: data.isDone == null ? false : data.isDone!,
+                  //           docId: data.id.toString(),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   title: Text(
+                  //     name,
+                  //     style: const TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  //   subtitle: Text(data.isDone.toString()),
+                  //   trailing: ElevatedButton(
+                  //     onPressed: () {
+                  //       provider.deleteData(data.id!);
+                  //     },
+                  //     child: const Text('DELETE'),
+                  //   ),
+
+                  // );
+                  return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => UpdateScreen(
                             docId: data.id.toString(),
+                            isDone: data.isDone!,
                           ),
                         ),
                       );
                     },
-                    title: Text(
-                      name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
+                      height: 80,
+                      decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  'Name: $name',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Text(
+                                  'Task: $subName',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  provider.toggleCompleate(
+                                      data.id, isDone, name, subName);
+                                },
+                                child: Text(isDone == true
+                                    ? 'Compleated'
+                                    : 'Not Compleate'),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  provider.deleteData(data.id);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                    ),
-                    subtitle: Text(data.id.toString()),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        provider.deleteData(data.id!);
-                      },
-                      child: const Text('DELETE'),
                     ),
                   );
                 },

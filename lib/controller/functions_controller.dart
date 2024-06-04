@@ -43,11 +43,31 @@ class FunctionsController extends ChangeNotifier {
     return collection.doc(docId).delete();
   }
 
-  Future<void> updateData(docId) async {
+  Future<void> updateData(docId, isDone) async {
     TodoModel todoModel = TodoModel(
       name: nameController.text,
       subName: subNameController.text,
       id: docId,
+      isDone: isDone,
+    );
+    try {
+      return await collection.doc(docId).update(todoModel.toJson());
+    } catch (e) {
+      throw Exception('ERROR: $e');
+    }
+  }
+
+  Future<void> toggleCompleate(docId, isDone, name, subName) async {
+    if (isDone == true) {
+      isDone = false;
+    } else if (isDone == false) {
+      isDone = true;
+    }
+    TodoModel todoModel = TodoModel(
+      name: name,
+      subName: subName,
+      id: docId,
+      isDone: isDone,
     );
     try {
       return await collection.doc(docId).update(todoModel.toJson());
