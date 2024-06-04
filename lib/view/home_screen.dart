@@ -123,7 +123,11 @@ class HomeScreen extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   provider.toggleCompleate(
-                                      data.id, isDone, name, subName);
+                                    data.id,
+                                    isDone,
+                                    name,
+                                    subName,
+                                  );
                                 },
                                 child: Text(isDone == true
                                     ? 'Compleated'
