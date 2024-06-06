@@ -67,7 +67,7 @@ class FunctionsController extends ChangeNotifier {
       name: name,
       subName: subName,
       id: docId,
-      isDone: isDone,
+      isDone: isDone,                  
     );
     try {
       return await collection.doc(docId).update(todoModel.toJson());

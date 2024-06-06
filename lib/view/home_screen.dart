@@ -47,32 +47,7 @@ class HomeScreen extends StatelessWidget {
                   final name = data.name.toString();
                   final subName = data.subName.toString();
                   final isDone = data.isDone;
-                  // return ListTile(
-                  //   onTap: () {
-                  //     Navigator.of(context).push(
-                  //       MaterialPageRoute(
-                  //         builder: (context) => UpdateScreen(
-                  //           isDone: data.isDone == null ? false : data.isDone!,
-                  //           docId: data.id.toString(),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  //   title: Text(
-                  //     name,
-                  //     style: const TextStyle(
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  //   subtitle: Text(data.isDone.toString()),
-                  //   trailing: ElevatedButton(
-                  //     onPressed: () {
-                  //       provider.deleteData(data.id!);
-                  //     },
-                  //     child: const Text('DELETE'),
-                  //   ),
-
-                  // );
+                 
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
@@ -129,9 +104,11 @@ class HomeScreen extends StatelessWidget {
                                     subName,
                                   );
                                 },
-                                child: Text(isDone == true
-                                    ? 'Compleated'
-                                    : 'Not Compleate'),
+                                child: Text(
+                                  isDone == true
+                                      ? 'Compleated'
+                                      : 'Not Compleate',
+                                ),
                               ),
                               IconButton(
                                 onPressed: () {
